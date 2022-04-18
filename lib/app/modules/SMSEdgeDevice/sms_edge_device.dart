@@ -5,40 +5,53 @@ import 'package:get/state_manager.dart';
 import 'package:sensor_management_service/app/global_widgets/global_widgets.dart';
 import 'package:sensor_management_service/app/modules/SMSEdgeDevice/controller/controller.dart';
 import 'package:sensor_management_service/app/modules/SMSEdgeDevice/local_widgets/edge_device_table.dart';
-import 'package:sensor_management_service/edge_device.dart';
 import 'package:sensor_management_service/sensor_widget.dart';
 
 // ignore: must_be_immutable
 class SMSEdgeDeviceView extends GetView<SMSEdgeDeviceController> {
-  List<EdgeDevice> edgeDevices = [];
-
   @override
   Widget build(BuildContext context) {
     controller.getEdgeDeviceData();
+
+    //
+    const appBar = Padding(
+      padding: EdgeInsets.only(bottom: 10),
+      child: WaterOSAppbar(),
+    );
+
+    //
+    var drawer = Padding(
+      padding: const EdgeInsets.only(right: 10),
+      child: WaterOSDrawer(
+        height: 1002,
+        width: MediaQuery.of(context).size.width * 0.15,
+      ),
+    );
+
+    //
+    var edgeDeviceTable = Obx(
+      () => EdgeDeviceTable(
+          edgeDeviceDataSource: controller.edgeDeviceDataSource.value),
+    );
+
+    //
+    const sensorWidget = Padding(
+      padding: EdgeInsets.only(left: 10, right: 10),
+      child: SensorWidget(),
+    );
+
     return Scaffold(
       backgroundColor: const Color(0xffF0F0F0),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const WaterOSAppbar(),
-            const SizedBox(height: 6),
+            appBar,
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                WaterOSDrawer(
-                  height: 1002,
-                  width: MediaQuery.of(context).size.width * 0.15,
-                ),
-                const SizedBox(width: 10),
-                Obx(
-                  () => Expanded(
-                      child: EdgeDeviceTable(
-                          edgeDeviceDataSource:
-                              controller.edgeDeviceDataSource.value)),
-                ),
-                const SizedBox(width: 10),
-                const SensorWidget(),
-                const SizedBox(width: 10),
+                drawer,
+                edgeDeviceTable,
+                sensorWidget,
               ],
             ),
           ],

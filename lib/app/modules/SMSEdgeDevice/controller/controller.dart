@@ -6,7 +6,6 @@ class SMSEdgeDeviceController extends GetxController {
   var edgeDeviceDataSource = EdgeDeviceDataSource(edgeDeviceData: []).obs;
   var edgeDevices = [];
 
-  //
   getEdgeDeviceData() {
     List<EdgeDevice> list = [];
     for (int i = 0; i < 10; i++) {
