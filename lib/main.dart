@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'app/modules/SMSEdgeDevice/sms_edge_device.dart';
+import 'package:get/get.dart';
+import 'package:sensor_management_service/routes/pages.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,11 +12,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Syncfusion DataGrid Demo',
       theme: ThemeData(primarySwatch: Colors.blue),
       debugShowCheckedModeBanner: false,
-      home: const MyHomePage(),
+      getPages: AppPages.routes,
+      initialRoute: AppPages.INITIAL,
     );
   }
 }
